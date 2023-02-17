@@ -1,0 +1,22 @@
+.title__nv{
+    font-size: 23px;
+}
+.form{
+    
+}
+.gr1{
+    width: 100%;
+    margin: 10px 0px;
+}
+.gr1 label,.gr1 select{
+    color: rgb(64, 64, 64);
+}
+input,select{
+    outline: none;
+    height: 30px;
+    
+}
+.btn1{
+    background: none;
+    border: none;
+}

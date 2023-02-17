@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quản lý nhân viên</title>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    integrity="sha512-SzlrxWUlpfuzQ+pcUCosxcglQRNAq/DZjVsC0lE40xsADsfeQoEypE+enwcOiGjk/bSuGGKHEyjSoQ1zVisanQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Bootstrap 4 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
+    integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+  <!-- My CSS -->
+  <link rel="stylesheet" type="text/css" href="css/main.css" />
+</head>
+
+<body>
+  <div class="wrapper">
+
+
+
+    <!-- Page Content Holder -->
+    <div id="content">
+      <div class="container">
+        <div class="card">
+          <!-- Header -->
+          <div class="px-3 py-0">
+            <div class="row">
+              <h3 class="text-center badge-dark title__nv py-3 col-12">
+                Quản lý nhân viên
+              </h3>
+              <div class="col-md-12 px-3 my-3">
+                <div class="form d-flex flex-column align-items-center">
+                  <div class="gr1 d-flex flex-column">
+                    <label for="">Mã nhân viên</label>
+                    <input type="text"  id="code">
+                    <div id="tbCode"></div>
+                  </div>
+                  <div class="gr1 d-flex flex-column">
+                    <label for="">Tên nhân viên</label>
+                    <input type="text"  id="nameMember">
+                    <div id="tbName"></div>
+                  </div>
+                  <div class="gr1 d-flex flex-column">
+                    <label for="">Chức vụ</label>
+                    <select name="" id="regency">
+                      <option value="1">Nhân viên</option>
+                      <option value="2">Quản lý</option>
+                      <option value="3">Giám đốc</option>
+                    </select>
+                  </div>
+                  <div class="gr1 d-flex flex-column">
+                    <label for="">Lương cở bản</label>
+                    <input type="text" value="" id="wageBasic">
+                    <div id="tbWage"></div>
+                  </div>
+                  <div class="gr1 d-flex flex-column">
+                    <label for="">Số giờ làm trong tháng</label>
+                    <input type="text" value="" id="timeMonth">
+                    <div id="tbTimeMonth"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-2 text-right">
+                <button class="btn btn-success" id="btnThem" onclick="checkImforMation()">
+                  Thêm nhân viên
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Body -->
+          <div class="card-body">
+
+            <table class="table table-bordered table-hover myTable">
+              <thead class="text-dark">
+                <tr>
+                  <th class="nowrap">
+                    <span class="mr-1">Mã nhân viên</span>
+                  </th>
+                  <th>Tên nhân viên</th>
+                  <th>Chức vụ</th>
+                  <th>Lương cơ bản</th>
+                  <th>Tổng lương</th>
+                  <th>Giờ làm/tháng</th>
+                  <th>Xếp loại nhân viên</th>
+                  <th colspan="2" class="text-center"><em class="fa fa-cog"></em></th>
+                </tr>
+              </thead>
+              <tbody id="tableDanhSach">
+                <!-- <tr>
+                  <td>
+                    <span class="mr-1"></span>
+                  </td>
+                  <td>Tên nhân viên</td>
+                  <td>Chức vụ</td>
+                  <td>Lương cơ bản</td>
+                  <td>Tổng lương</td>
+                  <td>Giờ làm/tháng</td>
+                  <td>Xếp loại nhân viên</td>
+                  <td><i class="fa-solid fa-trash-can"></i></td>
+                </tr> -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Footer -->
+          <div class="card-footer myCardFooter">
+            <nav>
+              <ul class="pagination justify-content-center" id="ulPhanTrang"></ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Button trigger modal -->
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Edit</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label>Tên nhân viên</label>
+            <input id="nameStaff" class="form-control" placeholder="Nhập vào tên sản phẩm" />
+            <div id="tbName1"></div>
+          </div>
+          <div class="form-group d-flex flex-column">
+            <label>Chức vụ</label>
+            <select id="regency1">
+              <option value="0">Chọn</option>
+              <option value="1">Nhân viên</option>
+              <option value="2">Quản lý</option>
+              <option value="3">Giám đốc</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Lương cơ bản</label>
+            <input id="wagebasic" class="form-control" placeholder="Nhập vào giá" />
+            <div id="tbWage1"></div>
+          </div>
+          <div class="form-group">
+            <label>Giờ làm/tháng</label>
+            <input id="timeMonth1" class="form-control" placeholder="Nhập vào giá" />
+            <div id="tbTimeMonth1"></div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <!-- axios -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.3/axios.min.js"
+    integrity="sha512-wS6VWtjvRcylhyoArkahZUkzZFeKB7ch/MHukprGSh1XIidNvHG1rxPhyFnL73M0FC1YXPIXLRDAoOyRJNni/g=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- Bootstrap -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct"
+    crossorigin="anonymous"></script>
+
+  <script src="./js/server/call.js"></script>
+  <script src="./js/models/nhan-vien.js"></script>
+  <script src="./js/models/validation.js"></script>
+  <script src="./js/controllers/main.js"></script>
+</body>
+
+</html>
